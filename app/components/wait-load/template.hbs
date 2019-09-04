@@ -1,0 +1,10 @@
+{{#if isLoading}}
+  <div class="wait-load">
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+    <div class="spinner"></div>
+  </div>
+{{else}}
+  {{yield}}
+{{/if}}

@@ -1,0 +1,22 @@
+<LeafletMap @lat={{lat}}
+            @lng={{lng}}
+            @zoom={{zoom}}
+            @onMoveend={{action "moveEnd"}}
+            @onZoomend={{action "zoomEnd"}} as |layers|>
+  <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
+
+  <WaitLoad @isLoading={{loadFromApiTask.isRunning}} />
+  <layers.marker-cluster as |cluster|>
+    {{#each this.carts as |cart|}}
+      <cluster.marker @location={{latlng cart.latitude cart.longitude}} as |marker|>
+        <marker.popup>
+          <h3>{{cart.name}}</h3>
+          <p class="subtitle">
+            {{join ", " cart.food_items}}
+          </p>
+          <p>{{cart.address}}</p>
+        </marker.popup>
+      </cluster.marker>
+    {{/each}}
+  </layers.marker-cluster>
+</LeafletMap>
