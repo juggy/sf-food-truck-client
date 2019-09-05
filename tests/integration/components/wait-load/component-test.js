@@ -7,20 +7,20 @@ module('Integration | Component | wait-load', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<WaitLoad />`);
+    this.loading = true;
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
     await render(hbs`
-      <WaitLoad>
+      <WaitLoad @isLoading={{loading}}>
         template block text
       </WaitLoad>
     `);
 
+    // shows loading
+    assert.ok(this.element.getElementsByClassName("spinner").length > 0);
+
+    this.set("loading", false);
+    // now it should show content
     assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

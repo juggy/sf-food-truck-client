@@ -23,13 +23,13 @@ export default Component.extend({
             {lat, lng} = this.getProperties("lat", "lng"),
             params = {lng, lat, radius};
 
-      const response = yield fetch(`/food_carts.json?${serializeQueryParams(params)}}`),
+      const response = yield fetch(`/api/food_carts.json?${serializeQueryParams(params)}}`),
             {carts} = yield response.json();
 
       this.set("carts", carts);
 
     } catch (e){
-      console.error(e);
+      throw e;
     }
 
   }).restartable(),
